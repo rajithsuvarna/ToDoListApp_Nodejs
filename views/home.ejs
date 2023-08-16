@@ -1,0 +1,105 @@
+<html>
+  <head>
+    <title><%=title%></title>
+    <!--linking html code with css asset-->
+    <link rel="stylesheet" href="/css/home.css" />
+    <!--To get the font awesome icons-->
+    <script
+      src="https://kit.fontawesome.com/e03918a86a.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!--main block-->
+    <div id="container">
+      <!--To Do List block-->
+      <div id="container-list">
+        <!--Heading section-->
+        <div id="main-heading">
+          <h1>TODO APP</h1>
+        </div>
+        <hr />
+        <!--Form to create the tasks-->
+        <div id="form-div">
+          <form action="/createtask" method="POST">
+            <div id="description-div">
+              <label for="description" id="description-label"
+                >Description</label
+              >
+              <br />
+              <input
+                type="text"
+                id="description"
+                name="description"
+                placeholder="What do you need to do?"
+                required
+              />
+            </div>
+            <div id="container-cat-date">
+              <div id="container-cat">
+                <label for="category" id="category-label">CATEGORY</label>
+                <br />
+                <select name="category" id="category" required>
+                  <option value="" disabled selected>Select Your option</option>
+                  <option>Personal</option>
+                  <option>School</option>
+                  <option>Work</option>
+                  <option>Cleaning</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div id="container-date">
+                <label for="datevalue">DUE DATE:</label>
+                <br />
+                <input type="date" id="datevalue" name="datevalue" required />
+              </div>
+            </div>
+            <!--buttons to add and delete the task-->
+            <div id="button-container">
+              <!--when we click the button create task form will be submitted-->
+              <button type="submit" id="add">
+                <i class="fa-solid fa-plus"></i>ADD TASK
+              </button>
+              <!--when we click on the anchor tag tasks will be deleted from the database-->
+              <a href="/delete-task">
+                <div id="delete">
+                  <i class="fa-solid fa-trash" id="delete-icon"></i>Delete TASK
+                </div>
+              </a>
+            </div>
+          </form>
+          <!--To Display the created tasks -->
+          <div>
+            <% for(let i of Task_List){%>
+            <div id="display-container">
+              <div id="checkbox-div">
+                <!--form to get the checked tasks id-->
+                <form action="/delete/?id=<%=i.id%>" method="POST">
+                  <input
+                    type="checkbox"
+                    name="checkbox"
+                    value="<%=i.id%>"
+                    onchange="this.form.submit()"
+                    id="checkbox"
+                  />
+                </form>
+              </div>
+              <!--To display description and datevalues-->
+              <div id="disc-date-div">
+                <p id="description-p1"><%=i.description%></p>
+                <p id="description-p2">
+                  <i class="fa-solid fa-calendar-days"></i><%=i.datevalue%>
+                </p>
+              </div>
+              <!--To display the category-->
+              <div class="cat-div"><%=i.category%></div>
+            </div>
+            <%}%>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--linking html code with javascript asset-->
+    <script type="text/javascript" src="/js/homejs.js"></script>
+  </body>
+</html>
